@@ -18,6 +18,9 @@ class Contact extends React.Component {
         this.props.delete(this.props.contactPass.id);
     }
 
+    handleChange = () => {
+
+    }
     render() {
         let cls = this.state.isShowing ?
             'fas fa-sort-down me-3' : 'fas fa-sort-up me-3' //change up or down icon

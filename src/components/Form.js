@@ -6,7 +6,10 @@ class Form extends React.Component {
         this.state = {
             name: '',
             phone: '',
-            email: ''
+            email: '',
+            error: {
+
+            }
         }
     }
 
@@ -14,15 +17,26 @@ class Form extends React.Component {
         this.setState({
             [e.target.name]: e.target.value
         })
-        console.log(e.target.name);
+        console.log(e.target.value);
     }
 
     handleSubmit = (e) => {
-
         e.preventDefault();
-        this.props.formData();
+        const { name, phone, email } = this.state
+        if (name === "") {
+            return this.setState({ error: { name: "Please enter your name" } })
+        } else if (email === "") {
+            return this.setState({ error: { email: "Please enter your Email Address" } })
+        } else if (phone === "") {
+            return this.setState({ error: { phone: "Please enter your phone number" } })
+        }
+        this.props.formData(this.state);
+        this.setState({ error: {}, name: "", email: "", phone: "" })
+
+
     }
     render() {
+        const { error } = this.state;
         return (
 
             <div className="card w-50 mx-auto">
@@ -36,15 +50,48 @@ class Form extends React.Component {
                             <input
                                 type="text"
                                 placeholder="Name"
-                                className="form-control"
+                                onChange={this.handleChange}
                                 value={this.state.name}
                                 name="name"
-                                onChange={this.handleChange}
+                                className="form-control"
                             />
+                            <span style={{ color: "red" }}>{error.name}</span>
                         </div>
+                        <div className="form-group">
+                            <label htmlFor="email">Email</label>
+                            <input
+                                type="text"
+                                placeholder="Email"
+                                onChange={this.handleChange}
+                                value={this.state.email}
+                                name="email"
+                                className="form-control"
+                            />
+                            <span style={{ color: "red" }}>{error.email}</span>
+                        </div>
+
+
+                        <div className="form-group">
+                            <label htmlFor="phone">phone</label>
+                            <input
+                                type="number"
+                                placeholder="phone"
+                                onChange={this.handleChange}
+                                value={this.state.phone}
+                                name="phone"
+                                className="form-control" />
+                        </div>
+                        <span style={{ color: "red" }}>{error.phone}</span>
+                        <button
+                            type="submit"
+                            className="btn btn-primary mt-3">
+                            Submit
+                        </button>
+
                     </form>
                 </div>
-                <div className="card-body">
+
+                {/* <div className="card-body">
                     <form action="">
                         <div className="form-group">
                             <label htmlFor="email">Email</label>
@@ -58,18 +105,19 @@ class Form extends React.Component {
                             />
                         </div>
                     </form>
-                </div>
-                <div className="card-body">
+                </div> */}
+
+                {/* <div className="card-body">
                     <form action="">
                         <div className="form-group">
                             <label htmlFor="phone">phone</label>
                             <input
                                 type="number"
                                 placeholder="phone"
-                                className="form-control"
                                 onChange={this.handleChange}
+                                value={this.state.phone}
                                 name="phone"
-                                value={this.state.phone} />
+                                className="form-control" />
                         </div>
                         <button
                             type="submit"
@@ -77,7 +125,8 @@ class Form extends React.Component {
                             Submit
                         </button>
                     </form>
-                </div>
+                </div> */}
+
 
             </div>
 
