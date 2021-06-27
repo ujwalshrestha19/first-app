@@ -60,6 +60,19 @@ class App extends React.Component {
     toast.success('Data Submitted');
   }
 
+  handleEditData = (editData) => {
+    let editContact = this.state.contact.map(function (
+      contact) {
+      if (editData.id === contact.id) {
+        return editData;
+      } else {
+        return contact;
+      }
+    })
+    this.setState({ contact: editContact })
+    toast.success("Edited Succcesfully");
+  };
+
   render() {
 
 
@@ -77,6 +90,7 @@ class App extends React.Component {
           <Contact
             contactPass={contactProps}
             delete={this.handleDelete}
+            edit={this.handleEditData}
             key={contactProps.id} />
         )}
 
